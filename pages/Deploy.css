@@ -1,74 +1,96 @@
-.deploymain{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%;
+.deploymain {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 24px;
+  border: 2px solid #ccc;
+  border-radius: 16px;
+  background-color: #fdfdfd;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
-.dep01{
-    width: 30%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    border: 1px solid black;
-    box-shadow: 0 0 5px black;
-    padding: 20px;
-    border-radius: 20px;
-}
-.dep02{
-    width: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-.depin01{
-    width: 100%;
-    display: flex;
-    padding-top: 20px;
-    flex-direction: column;
-    gap: 10px;
-}
-.inputField{
-    height: 40px;
-    border: none;
-    background-color: rgb(232, 228, 228);
-    border-radius: 5px;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 5px;
-}
-.inputField option {
-    background-color: #e8e4e4;
-    color: #000;
-    font-weight: 500;
-    font-size: 1rem;
-}
-.btn-deploy{
-    height: 60px;
-    width: 200px;
-    border: none;
-    box-shadow: 0 0 2px black;
-    background-color: rgb(59, 241, 59);
-    border-radius: 5px;
-    color: beige;
-    font-size: 1.3rem;
-}
-.btn-deploy:hover{
-    background-color: rgb(11, 212, 11);
-    cursor: pointer;
-}
-.stsconnect{
-    margin-top: 30px;
-    font-size: 1.2rem;
 
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    border: 1px solid black;
-    box-shadow: 0 0 5px black;
-    padding: 20px;
-    border-radius: 20px;
+.dep01 h1 {
+  font-size: 1.6rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.depin01 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inputField {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #bbb;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.inputField:focus {
+  border-color: #0056b3;
+}
+
+.optionField {
+  font-size: 1rem;
+  padding: 6px;
+}
+
+.dep02 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-deploy {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-deploy:hover {
+  background-color: #003f8c;
+}
+
+.stsconnect {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.status {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  background-color: #eef;
+  border: 1px solid #bbd;
+  padding: 12px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.deployed-address {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #006400;
+  word-break: break-word;
+  background-color: #e9fbe9;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #c2eac2;
 }

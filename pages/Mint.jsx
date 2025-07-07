@@ -11,7 +11,7 @@ const networks = {
 };
 
 const Mint = ({ deployedAddress, selectedNetwork }) => {
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState('waiting for minting...');
     const [walletAddress, setWalletAddress] = useState('0xa22999c408285a3c5fbcb53e29c1365c213d68d7'); 
     const [ipfsURI, setIpfsURI] = useState('');
     const [prompt, setPrompt] = useState('');
@@ -49,7 +49,7 @@ const Mint = ({ deployedAddress, selectedNetwork }) => {
             // Mint the NFT with the provided IPFS URI and prompt
             const tx = await nftCollection.mintNFT(walletAddress, ipfsURI, prompt);
             await tx.wait();
-            setStatus(`Minted NFT with URI: ${ipfsURI}`);
+            setStatus(`NFT Minted Successfully.`);
         } catch (error) {
             console.error('Minting Error:', error);
             setStatus('Error occurred while minting NFTs.');
@@ -79,6 +79,7 @@ const Mint = ({ deployedAddress, selectedNetwork }) => {
                         placeholder="Enter prompt (same as description)"
                     />
                 </div>
+                <br/>
                 <button onClick={mintNFTs} className="btn-deploy-mint">Mint NFT</button>
                 <pre className="status">{status}</pre>
             </div>

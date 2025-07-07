@@ -1,13 +1,30 @@
-.btnConnect{
-    height: 30px;
-    width: 120px;
-    border: none;
-    box-shadow: 0 0 2px black;
-    background-color: rgb(34, 232, 34);
-    border-radius: 5px;
-    color: beige;
+.btnConnect {
+  padding: 10px 16px;
+  background-color: #0056b3;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-.btnConnect:hover{
-    background-color: rgb(11, 212, 11);
-    cursor: pointer;
+
+.btnConnect:hover {
+  background-color: #003f8c;
+}
+
+h3 {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+  margin: 0;
+  padding: 8px 12px;
+  background-color: #eef;
+  border-radius: 8px;
+  border: 1px solid #c3d3e0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 240px;
 }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ethers } from 'ethers';
 import fxRootContractABI from '../fxRootContractABI.json';
 import tokenContractJSON from './abi/NFTCollection.json';
+import './Approve.css';
 
 const networks = {
     ethereum: {
@@ -27,8 +28,10 @@ const networks = {
 };
 
 const Approve = ({ deployedAddress, selectedNetwork }) => {
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState('waiting for approval...');
     const [tokenId, setTokenId] = useState(0);
+    const [currentNetwork, setCurrentNetwork] = useState(selectedNetwork);
+    const [localDeployedAddress, setLocalDeployedAddress] = useState(deployedAddress);
 
     const approveAndDeposit = async () => {
         try {
@@ -37,7 +40,7 @@ const Approve = ({ deployedAddress, selectedNetwork }) => {
                 return;
             }
 
-            const network = networks[selectedNetwork];
+            const network = networks[currentNetwork];
             setStatus(`Connecting to ${network.name}...`);
 
             await window.ethereum.request({
@@ -70,9 +73,9 @@ const Approve = ({ deployedAddress, selectedNetwork }) => {
 
     return (
         <div className="app">
-            <h1>Approve and Deposit Token</h1>
+            <h1>Approve and Deposit NFT</h1>
             <label>Select Network:</label>
-            <select onChange={(e) => setSelectedNetwork(e.target.value)} value={selectedNetwork}>
+            <select onChange={(e) => setCurrentNetwork(e.target.value)} value={currentNetwork}>
                 {Object.entries(networks).map(([key, { name }]) => (
                     <option key={key} value={key}>
                         {name}
@@ -86,6 +89,14 @@ const Approve = ({ deployedAddress, selectedNetwork }) => {
                 onChange={(e) => setTokenId(e.target.value)} 
                 min="0" 
                 className="token-id-input"
+            />
+            <label>Enter Contract Address:</label>
+            <input
+                type="text"
+                value={localDeployedAddress}
+                onChange={(e) => setLocalDeployedAddress(e.target.value)}
+                className="token-id-input"
+                placeholder="0x...your deployed address"
             />
             <button onClick={approveAndDeposit} className="btn-approve-deposit">
                 Approve and Deposit

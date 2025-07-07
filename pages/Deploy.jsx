@@ -94,7 +94,7 @@ const Deploy = () => {
                 </div>
             </div>
             <Mint deployedAddress={deployedAddress} selectedNetwork={selectedNetwork} />
-            {/* <Approve deployedAddress={deployedAddress} selectedNetwork={selectedNetwork} /> */}
+            <Approve deployedAddress={deployedAddress} selectedNetwork={selectedNetwork} />
         </div>
     );
 };
