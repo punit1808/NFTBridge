@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
-import tokenContractJSON from '../artifacts/contracts/NFTCollection.sol/NFTCollection.json';
+import tokenContractJSON from './abi/NFTCollection.json';
 import Mint from './Mint';
 import Approve from './Approve';
 import NavigationBar from './NavigationBar';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
 import fxRootContractABI from '../fxRootContractABI.json';
-import tokenContractJSON from '../artifacts/contracts/NFTCollection.sol/NFTCollection.json';
+import tokenContractJSON from './abi/NFTCollection.json';
 
 const networks = {
     ethereum: {
