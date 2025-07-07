@@ -7,6 +7,8 @@ const ConnectWallet = () => {
     const [connButtonText, setConnButtonText] = useState('Connect Wallet');
 
     const connectWalletHandler = async () => {
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
         if (window.ethereum && window.ethereum.isMetaMask) {
             console.log('MetaMask Here!');
 
@@ -17,8 +19,13 @@ const ConnectWallet = () => {
             } catch (error) {
                 console.error('Error connecting wallet:', error);
             }
+        } else if (isMobile) {
+            // Redirect mobile users to MetaMask app with deep link
+            const dappUrl = encodeURIComponent(window.location.hostname);
+            window.location.href = `https://metamask.app.link/dapp/${dappUrl}`;
         } else {
-            console.log('Need to install MetaMask');
+            console.log('MetaMask not detected. Please install MetaMask.');
+            alert('MetaMask not detected. Please install MetaMask extension.');
         }
     };
 
@@ -33,7 +40,6 @@ const ConnectWallet = () => {
     };
 
     const chainChangedHandler = async () => {
-        // Re-fetch the account after chain change to ensure it stays displayed
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
         if (accounts.length > 0) {
             setDefaultAccount(accounts[0]);
@@ -49,7 +55,6 @@ const ConnectWallet = () => {
             window.ethereum.on('accountsChanged', accountChangedHandler);
             window.ethereum.on('chainChanged', chainChangedHandler);
 
-            // Cleanup listeners on component unmount
             return () => {
                 window.ethereum.removeListener('accountsChanged', accountChangedHandler);
                 window.ethereum.removeListener('chainChanged', chainChangedHandler);
