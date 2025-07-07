@@ -1,17 +1,19 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
 
+const { INFURA_PROJECT_ID, PRIVATE_KEY } = process.env;
+
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.18",
+  solidity: "0.8.9",
   networks: {
-    mumbai: {
-      url: 'https://rpc-mumbai.maticvigil.com',
-      accounts: [process.env.PRIVATE_KEY],
+    amoy: {
+      url: `https://polygon-amoy.infura.io/v3/${INFURA_PROJECT_ID}`,
+      accounts: [PRIVATE_KEY],
     },
-    goerli: {
-      url: 'https://ethereum-goerli.publicnode.com',
-      accounts: [process.env.PRIVATE_KEY],
+    sepolia: {
+      url: `https://sepolia.infura.io/v3/${INFURA_PROJECT_ID}`,
+      accounts: [PRIVATE_KEY],
     },
-  }
+  },
 };
