@@ -9,10 +9,10 @@ const networks = {
     sepolia: { name: 'sepolia Testnet', chainId: 11155111 },
     amoy: { name: 'Amoy Testnet', chainId: 80002 },
 };
-
+const walletAdd = localStorage.getItem('walletAddress') || '';
 const Mint = ({ deployedAddress, selectedNetwork }) => {
     const [status, setStatus] = useState('waiting for minting...');
-    const [walletAddress, setWalletAddress] = useState('0xa22999c408285a3c5fbcb53e29c1365c213d68d7'); 
+    const [walletAddress, setWalletAddress] = useState(walletAdd || ''); 
     const [ipfsURI, setIpfsURI] = useState('');
     const [prompt, setPrompt] = useState('');
 
@@ -81,7 +81,7 @@ const Mint = ({ deployedAddress, selectedNetwork }) => {
                 </div>
                 <br/>
                 <button onClick={mintNFTs} className="btn-deploy-mint">Mint NFT</button>
-                <pre className="status">{status}</pre>
+                <div className="status">{status}</div>
             </div>
         </div>
     );

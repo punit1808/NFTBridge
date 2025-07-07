@@ -4,7 +4,6 @@ import tokenContractJSON from './abi/NFTCollection.json';
 import Mint from './Mint';
 import Approve from './Approve';
 import NavigationBar from './NavigationBar';
-// import NFTLandingPage from './NFTLandingPage';
 import './Deploy.css';
 
 const networks = {
@@ -66,7 +65,6 @@ const Deploy = () => {
     return (
         <div>
             <NavigationBar/>
-            {/* <NFTLandingPage/> */}
             <div className="deploymain">
                 <div className='dep01'>
                     <h1>Deploy NFT Contract</h1>
@@ -79,8 +77,13 @@ const Deploy = () => {
                                 </option>
                             ))}
                         </select>
-                        <h4>Select Chain ID:</h4>
-                        <input className='inputField' defaultValue={1} type='number' />
+                        <h4>Chain ID:</h4>
+                        <input
+                            className="inputField"
+                            type="number"
+                            value={networks[selectedNetwork]?.chainId || ''}
+                            readOnly
+                        />
                     </div>
                 </div>
                 <div className='dep02'>
@@ -88,8 +91,8 @@ const Deploy = () => {
                         Deploy Contract
                     </button>
                     <div className='stsconnect'>
-                        <pre className="status">{status}</pre>
-                        {deployedAddress && <div className="deployed-address">Deployed Address: {deployedAddress}</div>}
+                        <div className="status">{status}</div>
+                        {deployedAddress && <div className="status">Deployed Address: {deployedAddress}</div>}
                     </div>
                 </div>
             </div>

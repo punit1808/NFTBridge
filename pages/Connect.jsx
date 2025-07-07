@@ -44,6 +44,7 @@ const ConnectWallet = () => {
         if (accounts.length > 0) {
             setDefaultAccount(accounts[0]);
             setConnButtonText('Wallet Connected');
+            localStorage.setItem('walletAddress', accounts[0]); 
         } else {
             setDefaultAccount(null);
             setConnButtonText('Connect Wallet');

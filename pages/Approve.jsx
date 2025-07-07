@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import fxRootContractABI from '../fxRootContractABI.json';
 import tokenContractJSON from './abi/NFTCollection.json';
@@ -8,7 +8,7 @@ const networks = {
     ethereum: {
         name: "Sepolia Testnet",
         chainId: 11155111,
-        fxERC71RootAddress: "0x9E688939Cb5d484e401933D850207D6750852053", // Replace with Ethereum FxRoot address
+        fxERC71RootAddress: "0x9E688939Cb5d484e401933D850207D6750852053",
     },
     polygon: {
         name: "Polygon Mainnet",
@@ -32,6 +32,11 @@ const Approve = ({ deployedAddress, selectedNetwork }) => {
     const [tokenId, setTokenId] = useState(0);
     const [currentNetwork, setCurrentNetwork] = useState(selectedNetwork);
     const [localDeployedAddress, setLocalDeployedAddress] = useState(deployedAddress);
+
+    useEffect(() => {
+        setLocalDeployedAddress(deployedAddress);
+    }, [deployedAddress]);
+
 
     const approveAndDeposit = async () => {
         try {
@@ -101,7 +106,7 @@ const Approve = ({ deployedAddress, selectedNetwork }) => {
             <button onClick={approveAndDeposit} className="btn-approve-deposit">
                 Approve and Deposit
             </button>
-            <pre className="status">{status}</pre>
+            <div className="status">{status}</div>
         </div>
     );
 };

@@ -1,59 +1,51 @@
 .deploymain {
-  max-width: 900px;
+  max-width: 800px;
   margin: 40px auto;
-  padding: 24px;
+  padding: 20px;
   border: 2px solid #ccc;
   border-radius: 16px;
-  background-color: #fdfdfd;
-  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+  background-color: #f9f9f9;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
   font-family: 'Segoe UI', sans-serif;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
 }
 
-.dep01 h1 {
-  font-size: 1.6rem;
-  color: #333;
-  text-align: center;
+.dep01, .dep02 {
   margin-bottom: 20px;
 }
 
-.depin01 {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.deploymain h1 {
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  color: #333;
+  text-align: center;
 }
 
-.inputField {
+.deploymain h4 {
+  margin: 12px 0 6px;
+  font-weight: 500;
+  color: #555;
+}
+
+.inputField,
+.optionField {
   width: 100%;
-  padding: 10px 14px;
+  padding: 10px 12px;
   font-size: 1rem;
   border-radius: 8px;
   border: 1px solid #bbb;
-  outline: none;
-  transition: border-color 0.2s;
+  margin-bottom: 16px;
+  box-sizing: border-box;
 }
 
-.inputField:focus {
+.inputField:focus,
+select:focus {
   border-color: #0056b3;
-}
-
-.optionField {
-  font-size: 1rem;
-  padding: 6px;
-}
-
-.dep02 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
+  outline: none;
 }
 
 .btn-deploy {
   width: 100%;
-  padding: 14px;
+  padding: 12px;
   font-size: 1rem;
   background-color: #0056b3;
   color: white;
@@ -68,29 +60,28 @@
 }
 
 .stsconnect {
-  width: 100%;
-  margin-top: 10px;
+  margin-top: 16px;
 }
 
 .status {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  background-color: #eef;
-  border: 1px solid #bbd;
-  padding: 12px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #006400;
+  background-color: #e9fbe9;
+  padding: 10px;
   border-radius: 8px;
+  border: 1px solid #c2eac2;
   white-space: pre-wrap;
   word-break: break-word;
 }
 
 .deployed-address {
-  margin-top: 8px;
+  margin-top: 12px;
   font-size: 0.95rem;
-  font-weight: bold;
-  color: #006400;
-  word-break: break-word;
-  background-color: #e9fbe9;
+  color: #333;
+  background-color: #f0f0f0;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #c2eac2;
+  border: 1px solid #ccc;
+  word-break: break-word;
 }
