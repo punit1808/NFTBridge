@@ -36,6 +36,37 @@ function NavigationBar() {
         }
     }, []);
 
+    useEffect(() => {
+    const fetchWallet = async () => {
+        const storedWallet = localStorage.getItem('walletAddress');
+        if (storedWallet) {
+            setWalletAddress(storedWallet);
+        } else if (window.ethereum) {
+            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            if (accounts.length > 0) {
+                setWalletAddress(accounts[0]);
+                localStorage.setItem('walletAddress', accounts[0]);
+            }
+        }
+    };
+
+    fetchWallet();
+
+    const handleWalletConnected = () => {
+        const updatedWallet = localStorage.getItem('walletAddress');
+        if (updatedWallet) {
+            setWalletAddress(updatedWallet);
+        }
+    };
+
+    window.addEventListener("walletConnected", handleWalletConnected);
+
+    return () => {
+        window.removeEventListener("walletConnected", handleWalletConnected);
+    };
+}, []);
+
+
     const handleCopy = () => {
         navigator.clipboard.writeText(walletAddress);
         setCopied(true);

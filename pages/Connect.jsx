@@ -10,6 +10,8 @@ const ConnectWallet = () => {
     useEffect(() => {
         if (defaultAccount) {
             localStorage.setItem('walletAddress', defaultAccount);
+            localStorage.setItem('walletAddress', accounts[0]);
+            window.dispatchEvent(new Event("walletConnected"));
         } else {
             localStorage.removeItem('walletAddress');
         }
