@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import './Connect.css';
+import { Copy } from 'lucide-react'; // You can use this or any other icon
 
 const ConnectWallet = () => {
     const [defaultAccount, setDefaultAccount] = useState(null);
@@ -75,14 +76,28 @@ const ConnectWallet = () => {
         }
     }, []);
 
+    const handleCopy = () => {
+        navigator.clipboard.writeText(walletAddress);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+    };
+
     return (
         <div>
             {!defaultAccount && (
                 <button className='btnConnect' onClick={connectWalletHandler}>{connButtonText}</button>
             )}
             {defaultAccount && (
-                <div>
-                    <h3>Address: {defaultAccount}</h3>
+                <div className="walletAddressDesktop" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span>{walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}</span>
+                    <button
+                        onClick={handleCopy}
+                        style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}
+                        title="Copy Wallet Address"
+                    >
+                        <Copy size={16} />
+                    </button>
+                    {copied && <span style={{ fontSize: '12px', color: 'green' }}>Copied!</span>}
                 </div>
             )}
         </div>
