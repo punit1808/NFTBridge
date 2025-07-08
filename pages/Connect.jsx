@@ -6,6 +6,16 @@ const ConnectWallet = () => {
     const [defaultAccount, setDefaultAccount] = useState(null);
     const [connButtonText, setConnButtonText] = useState('Connect Wallet');
 
+
+    useEffect(() => {
+        if (defaultAccount) {
+            localStorage.setItem('walletAddress', defaultAccount);
+        } else {
+            localStorage.removeItem('walletAddress');
+        }
+    }, [defaultAccount]);
+
+
     const connectWalletHandler = async () => {
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
@@ -16,6 +26,7 @@ const ConnectWallet = () => {
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 setDefaultAccount(accounts[0]);
                 setConnButtonText('Wallet Connected');
+                localStorage.setItem('walletAddress', accounts[0]); 
             } catch (error) {
                 console.error('Error connecting wallet:', error);
             }
@@ -44,7 +55,6 @@ const ConnectWallet = () => {
         if (accounts.length > 0) {
             setDefaultAccount(accounts[0]);
             setConnButtonText('Wallet Connected');
-            localStorage.setItem('walletAddress', accounts[0]); 
         } else {
             setDefaultAccount(null);
             setConnButtonText('Connect Wallet');
