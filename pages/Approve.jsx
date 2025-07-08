@@ -58,7 +58,7 @@ const Approve = ({ deployedAddress, selectedNetwork }) => {
             const provider = new ethers.BrowserProvider(window.ethereum);
             const signer = await provider.getSigner();
 
-            const tokenContract = new ethers.Contract(deployedAddress, tokenContractJSON.abi, signer);
+            const tokenContract = new ethers.Contract(localDeployedAddress, tokenContractJSON.abi, signer);
             const fxContract = new ethers.Contract(network.fxERC71RootAddress, fxRootContractABI, signer);
 
             setStatus(`Approving token ID ${tokenId} for FxRoot on ${network.name}...`);
@@ -67,7 +67,7 @@ const Approve = ({ deployedAddress, selectedNetwork }) => {
             setStatus(`Approved token ID ${tokenId} for FxRoot on ${network.name}.`);
 
             setStatus(`Depositing token ID ${tokenId} to FxRootTunnel on ${network.name}...`);
-            const depositTx = await fxContract.deposit(deployedAddress, await signer.getAddress(), tokenId, "0x6547");
+            const depositTx = await fxContract.deposit(localDeployedAddress, await signer.getAddress(), tokenId, "0x6547");
             await depositTx.wait();
             setStatus(`Deposited token ID ${tokenId} to FxRootTunnel on ${network.name}.`);
         } catch (error) {
