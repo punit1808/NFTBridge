@@ -34,7 +34,7 @@ const ConnectWallet = () => {
         } else if (isMobile) {
             // Redirect mobile users to MetaMask app with deep link
             const dappUrl = encodeURIComponent(window.location.hostname);
-            window.location.href = `https://metamask.app.link/dapp/${dappUrl}`;
+            // window.location.href = `https://metamask.app.link/dapp/${dappUrl}`;
         } else {
             console.log('MetaMask not detected. Please install MetaMask.');
             alert('MetaMask not detected. Please install MetaMask extension.');
