@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import './NavBar.css';
 import img1 from './Images/nftlogo.png';
 import ConnectWallet from './Connect';
+import { Copy } from 'lucide-react'; // You can use this or any other icon
 
 function NavigationBar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [walletAddress, setWalletAddress] = useState('');
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [copied, setCopied] = useState(false);
 
-    // Detect screen resize for mobile responsiveness
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 768);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // Detect wallet connection
     useEffect(() => {
         const fetchWallet = async () => {
             if (window.ethereum) {
@@ -35,6 +35,12 @@ function NavigationBar() {
         }
     }, []);
 
+    const handleCopy = () => {
+        navigator.clipboard.writeText(walletAddress);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+    };
+
     return (
         <div className="navBound">
             <div className="nav1">
@@ -44,15 +50,23 @@ function NavigationBar() {
 
             <div className="network-bridge hide-on-mobile">
                 <span className="network-name">Polygon</span>
-                <span className="bridge-icon">🔗</span>
+                <span className="bridge-icon">↔</span>
                 <span className="network-name">Ethereum</span>
             </div>
 
             <div className="navRight">
                 {!isMobile && !walletAddress && <ConnectWallet />}
                 {!isMobile && walletAddress && (
-                    <div className="walletAddressDesktop">
-                        {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
+                    <div className="walletAddressDesktop" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span>{walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}</span>
+                        <button
+                            onClick={handleCopy}
+                            style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}
+                            title="Copy Wallet Address"
+                        >
+                            <Copy size={16} />
+                        </button>
+                        {copied && <span style={{ fontSize: '12px', color: 'green' }}>Copied!</span>}
                     </div>
                 )}
                 {isMobile && (
@@ -67,8 +81,16 @@ function NavigationBar() {
                     {!walletAddress ? (
                         <ConnectWallet />
                     ) : (
-                        <div className="walletAddressMobile">
-                            Connected: {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
+                        <div className="walletAddressMobile" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span>Connected: {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}</span>
+                            <button
+                                onClick={handleCopy}
+                                style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}
+                                title="Copy Wallet Address"
+                            >
+                                <Copy size={16} />
+                            </button>
+                            {copied && <span style={{ fontSize: '12px', color: 'green' }}>Copied!</span>}
                         </div>
                     )}
                 </div>
