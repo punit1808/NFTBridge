@@ -22,6 +22,7 @@ function NavigationBar() {
                 const accounts = await window.ethereum.request({ method: 'eth_accounts' });
                 if (accounts.length > 0) {
                     setWalletAddress(accounts[0]);
+                    localStorage.setItem('walletAddress', accounts[0]);
                 }
             }
         };
