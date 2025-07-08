@@ -5,7 +5,7 @@ import tokenContractJSON from './abi/NFTCollection.json';
 import './Approve.css';
 
 const networks = {
-    ethereum: {
+    sepolia: {
         name: "Sepolia Testnet",
         chainId: 11155111,
         fxERC71RootAddress: "0x9E688939Cb5d484e401933D850207D6750852053",
@@ -15,10 +15,10 @@ const networks = {
         chainId: 137,
         fxERC71RootAddress: "0xAnotherFxRootAddressForPolygon", // Replace with Polygon FxRoot address
     },
-    rinkeby: {
-        name: "Rinkeby Testnet",
-        chainId: 4,
-        fxERC71RootAddress: "0xAnotherFxRootAddressForRinkeby", // Replace with Rinkeby FxRoot address
+    ethereum: {
+        name: "Ethereum Mainnet",
+        chainId: 1,
+        fxERC71RootAddress: "0xAnotherFxRootAddressForRinkeby", // Replace with Ethereum FxRoot address
     },
     amoy: {
         name: "Amoy Testnet",
@@ -28,7 +28,7 @@ const networks = {
 };
 
 const Approve = ({ deployedAddress, selectedNetwork }) => {
-    const [status, setStatus] = useState('waiting for approval...');
+    const [status, setStatus] = useState('waiting for action...');
     const [tokenId, setTokenId] = useState(0);
     const [currentNetwork, setCurrentNetwork] = useState(selectedNetwork);
     const [localDeployedAddress, setLocalDeployedAddress] = useState(deployedAddress);
@@ -40,6 +40,12 @@ const Approve = ({ deployedAddress, selectedNetwork }) => {
 
     const approveAndDeposit = async () => {
         try {
+
+            if(!localDeployedAddress){
+                setStatus('Please enter a valid contract address.');
+                return;
+            }
+
             if (!window.ethereum) {
                 setStatus('MetaMask is not installed.');
                 return;
@@ -55,18 +61,22 @@ const Approve = ({ deployedAddress, selectedNetwork }) => {
 
             await window.ethereum.request({ method: 'eth_requestAccounts' });
 
+            setStatus(`waiting for payment approval on ${network.name}...`);
             const provider = new ethers.BrowserProvider(window.ethereum);
             const signer = await provider.getSigner();
 
+            setStatus('Approving token for FxRoot...');
             const tokenContract = new ethers.Contract(localDeployedAddress, tokenContractJSON.abi, signer);
             const fxContract = new ethers.Contract(network.fxERC71RootAddress, fxRootContractABI, signer);
 
             setStatus(`Approving token ID ${tokenId} for FxRoot on ${network.name}...`);
+            setStatus('waiting for payment approval...');
             const approveTx = await tokenContract.approve(network.fxERC71RootAddress, tokenId);
             await approveTx.wait();
             setStatus(`Approved token ID ${tokenId} for FxRoot on ${network.name}.`);
 
             setStatus(`Depositing token ID ${tokenId} to FxRootTunnel on ${network.name}...`);
+            setStatus('waiting for deposit transaction...');
             const depositTx = await fxContract.deposit(localDeployedAddress, await signer.getAddress(), tokenId, "0x6547");
             await depositTx.wait();
             setStatus(`Deposited token ID ${tokenId} to FxRootTunnel on ${network.name}.`);

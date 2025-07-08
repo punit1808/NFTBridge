@@ -11,49 +11,53 @@ const networks = {
 };
 
 const Mint = ({ deployedAddress, selectedNetwork }) => {
-    const [status, setStatus] = useState('waiting for minting...');
+    const [status, setStatus] = useState('waiting for action...');
     const [walletAddress, setWalletAddress] = useState('');
     const [ipfsURI, setIpfsURI] = useState('');
     const [prompt, setPrompt] = useState('');
+    const [currentNetwork, setCurrentNetwork] = useState('sepolia');
     const [localDeployedAddress, setLocalDeployedAddress] = useState(deployedAddress || '');
 
-    // Sync with props or localStorage
     useEffect(() => {
-        const storedAddress = localStorage.getItem('deployedAddress');
-        if (storedAddress && storedAddress !== localDeployedAddress) {
-            setLocalDeployedAddress(storedAddress);
-        }
-    }, []);
-
-    useEffect(() => {
+        const walletAdd = localStorage.getItem('walletAddress') || '';
+        setWalletAddress(walletAdd);
         if (deployedAddress && deployedAddress !== localDeployedAddress) {
             setLocalDeployedAddress(deployedAddress);
         }
     }, [deployedAddress]);
 
+    useEffect(() => {
+        const walletAdd = localStorage.getItem('walletAddress') || '';
+        setWalletAddress(walletAdd);
+    }, [ipfsURI]);
+
     const mintNFTs = async () => {
         try {
-            const walletAdd = localStorage.getItem('walletAddress') || '';
-            setWalletAddress(walletAdd);
+            if (!ipfsURI || !prompt) {
+                setStatus('IPFS URI and Prompt are required.');
+                return;
+            }
 
             if (!window.ethereum) {
                 setStatus('MetaMask is not installed.');
                 return;
             }
 
-            const network = networks[selectedNetwork];
+            const network = networks[currentNetwork];
             if (!network) {
                 setStatus('Invalid network selected.');
                 return;
             }
 
-            setStatus(`Switching to ${selectedNetwork}...`);
+            setStatus(`Switching to ${currentNetwork}...`);
             await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
                 params: [{ chainId: `0x${network.chainId.toString(16)}` }],
             });
+            setStatus(`Connected to ${network.name}. Requesting accounts...`);
 
             await window.ethereum.request({ method: 'eth_requestAccounts' });
+            setStatus('waiting for payment approval...');
 
             const provider = new ethers.BrowserProvider(window.ethereum);
             const signer = await provider.getSigner();
@@ -64,8 +68,9 @@ const Mint = ({ deployedAddress, selectedNetwork }) => {
             }
 
             const nftCollection = new ethers.Contract(localDeployedAddress, tokenContractJSON.abi, signer);
-
+            
             const tx = await nftCollection.mintNFT(walletAddress, ipfsURI, prompt);
+            setStatus('Minting NFT...');
             await tx.wait();
             setStatus(`NFT Minted Successfully.`);
         } catch (error) {
@@ -78,6 +83,19 @@ const Mint = ({ deployedAddress, selectedNetwork }) => {
         <div className="mintBox">
             <div className='insideMintBox'>
                 <h1>Mint NFTs</h1>
+
+                <div className='ifpsURL'>
+                    <h4>Select Network:</h4>
+                    <select
+                        className="inputField"
+                        value={currentNetwork}
+                        onChange={(e) => setCurrentNetwork(e.target.value)}
+                    >
+                        {Object.entries(networks).map(([key, { name }]) => (
+                            <option key={key} value={key}>{name}</option>
+                        ))}
+                    </select>
+                </div>
 
                 <div className='ifpsURL'>
                     <h4>Contract Address:</h4>

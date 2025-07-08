@@ -14,8 +14,8 @@ const networks = {
 };
 
 const Deploy = () => {
-    const [selectedNetwork, setSelectedNetwork] = useState('ethereum');
-    const [status, setStatus] = useState('Waiting for Contarct Deployment...');
+    const [selectedNetwork, setSelectedNetwork] = useState('sepolia');
+    const [status, setStatus] = useState('waiting for action...');
     const [deployedAddress, setDeployedAddress] = useState('');
 
     const deployContract = async () => {
@@ -32,21 +32,25 @@ const Deploy = () => {
                 method: 'wallet_switchEthereumChain',
                 params: [{ chainId: `0x${network.chainId.toString(16)}` }],
             });
+            setStatus(`Connected to ${network.name}. Requesting accounts...`);
 
             await window.ethereum.request({ method: 'eth_requestAccounts' });
+            
 
             const provider = new ethers.BrowserProvider(window.ethereum);
             const signer = await provider.getSigner();
+            
 
-            setStatus('Deploying contract...');
             const tokenFactory = new ethers.ContractFactory(
                 tokenContractJSON.abi,
                 tokenContractJSON.bytecode,
                 signer
             );
+            setStatus('waiting for payment approval...');
 
             // Deploy the contract and wait for it to be mined
             const contract = await tokenFactory.deploy();
+            setStatus('Deploying contract...')
             await contract.deploymentTransaction().wait(); // Using deploymentTransaction().wait() to wait for mining
 
             setDeployedAddress(contract.target); // Using `contract.target` for the deployed address
