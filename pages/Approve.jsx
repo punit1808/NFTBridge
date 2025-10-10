@@ -5,26 +5,26 @@ import tokenContractJSON from './abi/NFTCollection.json';
 import './Approve.css';
 
 const networks = {
-    sepolia: {
-        name: "Sepolia Testnet",
-        chainId: 11155111,
-        fxERC71RootAddress: "0x9E688939Cb5d484e401933D850207D6750852053",
-    },
-    polygon: {
-        name: "Polygon Mainnet",
-        chainId: 137,
-        fxERC71RootAddress: "0xAnotherFxRootAddressForPolygon", // Replace with Polygon FxRoot address
-    },
-    ethereum: {
-        name: "Ethereum Mainnet",
-        chainId: 1,
-        fxERC71RootAddress: "0xAnotherFxRootAddressForRinkeby", // Replace with Ethereum FxRoot address
-    },
-    amoy: {
-        name: "Amoy Testnet",
-        chainId: 80002,
-        fxERC71RootAddress: "0x9E688939Cb5d484e401933D850207D6750852053", // Replace with Amoy FxRoot address
-    },
+  sepolia: {
+    name: "Sepolia Testnet",
+    chainId: 11155111,
+    fxERC71RootAddress: "0x9E688939Cb5d484e401933D850207D6750852053", // Sepolia FxRoot address
+  },
+  polygon: {
+    name: "Polygon Mainnet",
+    chainId: 137,
+    fxERC71RootAddress: "0xfe5e5D361b2ad62c541bAb87C45a0B9B018389a2", // Polygon FxRoot address
+  },
+  ethereum: {
+    name: "Ethereum Mainnet",
+    chainId: 1,
+    fxERC71RootAddress: "0xfe5e5D361b2ad62c541bAb87C45a0B9B018389a2", // Ethereum FxRoot address
+  },
+  amoy: {
+    name: "Amoy Testnet",
+    chainId: 80002,
+    fxERC71RootAddress: "0x9E688939Cb5d484e401933D850207D6750852053", // Amoy FxRoot address
+  },
 };
 
 const Approve = ({ deployedAddress, selectedNetwork }) => {

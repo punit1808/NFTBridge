@@ -4,6 +4,7 @@ import tokenContractJSON from './abi/NFTCollection.json';
 import Mint from './Mint';
 import Approve from './Approve';
 import NavigationBar from './NavigationBar';
+import OwnedNFTs from './OwnedNFTs';
 import './Deploy.css';
 
 const networks = {
@@ -17,6 +18,8 @@ const Deploy = () => {
     const [selectedNetwork, setSelectedNetwork] = useState('sepolia');
     const [status, setStatus] = useState('waiting for action...');
     const [deployedAddress, setDeployedAddress] = useState('');
+    const [contractName, setContractName] = useState('NFTCollection721A');
+    const [contractSymbol, setContractSymbol] = useState('NFTA');
 
     const deployContract = async () => {
         try {
@@ -36,24 +39,23 @@ const Deploy = () => {
 
             await window.ethereum.request({ method: 'eth_requestAccounts' });
             
-
             const provider = new ethers.BrowserProvider(window.ethereum);
             const signer = await provider.getSigner();
             
-
             const tokenFactory = new ethers.ContractFactory(
                 tokenContractJSON.abi,
                 tokenContractJSON.bytecode,
                 signer
             );
+
             setStatus('waiting for payment approval...');
 
-            // Deploy the contract and wait for it to be mined
-            const contract = await tokenFactory.deploy();
-            setStatus('Deploying contract...')
-            await contract.deploymentTransaction().wait(); // Using deploymentTransaction().wait() to wait for mining
+            // Deploy the contract with dynamic name and symbol
+            const contract = await tokenFactory.deploy(contractName, contractSymbol);
+            setStatus('Deploying contract...');
+            await contract.deploymentTransaction().wait();
 
-            setDeployedAddress(contract.target); // Using `contract.target` for the deployed address
+            setDeployedAddress(contract.target);
             setStatus('Contract Deployed');
         } catch (error) {
             console.error('Deployment Error:', error);
@@ -68,7 +70,7 @@ const Deploy = () => {
 
     return (
         <div>
-            <NavigationBar/>
+            <NavigationBar />
             <div className="deploymain">
                 <div className='dep01'>
                     <h1>Deploy NFT Contract</h1>
@@ -90,17 +92,39 @@ const Deploy = () => {
                         />
                     </div>
                 </div>
+
                 <div className='dep02'>
+                    {/* Contract Name & Symbol Inputs Side by Side */}
+                    <div className='contractInputs' style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                        <input
+                            type="text"
+                            placeholder="Collection Name"
+                            value={contractName}
+                            onChange={(e) => setContractName(e.target.value)}
+                            className="inputField"
+                        />
+                        <input
+                            type="text"
+                            placeholder="Symbol"
+                            value={contractSymbol}
+                            onChange={(e) => setContractSymbol(e.target.value)}
+                            className="inputField"
+                        />
+                    </div>
+
                     <button onClick={deployContract} className="btn-deploy">
                         Deploy Contract
                     </button>
+
                     <div className='stsconnect'>
                         <div className="status">{status}</div>
                         {deployedAddress && <div className="status">Deployed Address: {deployedAddress}</div>}
                     </div>
                 </div>
             </div>
+
             <Mint deployedAddress={deployedAddress} selectedNetwork={selectedNetwork} />
+            <OwnedNFTs/>
             <Approve deployedAddress={deployedAddress} selectedNetwork={selectedNetwork} />
         </div>
     );

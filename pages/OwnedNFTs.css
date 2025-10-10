@@ -1,0 +1,75 @@
+.ownedNFTsBox {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 24px;
+  border: 2px solid #ddd;
+  border-radius: 16px;
+  background-color: #f9f9ff;
+  box-shadow: 0px 4px 16px rgba(0,0,0,0.08);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.inputRow {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.inputField {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #bbb;
+  outline: none;
+}
+
+.inputField:focus {
+  border-color: #0056b3;
+}
+
+.btn {
+  padding: 10px 14px;
+  background-color: #0056b3;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.btn:hover {
+  background-color: #003f8c;
+}
+
+.connectBtn {
+  background-color: #006400;
+}
+
+.connectBtn:hover {
+  background-color: #004d00;
+}
+
+.status {
+  margin-bottom: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.nftGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.nftCard {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 8px;
+  text-align: center;
+  width: 150px;
+}
+
+.nftCard img {
+  max-width: 100%;
+  border-radius: 8px;
+}

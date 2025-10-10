@@ -67,3 +67,64 @@
   border-radius: 8px;
   border: 1px solid #c2eac2;
 }
+
+.btn-add-row:hover {
+  background-color: #218838;
+}
+
+/* Adjust input fields for batch rows */
+.batchRow .inputField {
+  width: calc(50% - 5px); /* two inputs side by side with small gap */
+}
+
+.batchRow {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.btn-batch {
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #0056b3;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-batch:hover {
+  background-color: #003f8c;
+}
+
+.btn-add-row {
+  margin-top: 8px;
+  padding: 10px 10px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-add-row:hover {
+  background-color: #1e7e34;
+}
+
+.btn-remove-row {
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 50%;
+  background-color: #dc3545;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-remove-row:hover {
+  background-color: #a71d2a;
+}
