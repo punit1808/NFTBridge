@@ -5,6 +5,7 @@ import Mint from './Mint';
 import Approve from './Approve';
 import NavigationBar from './NavigationBar';
 import OwnedNFTs from './OwnedNFTs';
+import FeedbackSection from './FeedBack/FeedbackSection';
 import './Deploy.css';
 
 const networks = {
@@ -126,6 +127,7 @@ const Deploy = () => {
             <Mint deployedAddress={deployedAddress} selectedNetwork={selectedNetwork} />
             <OwnedNFTs/>
             <Approve deployedAddress={deployedAddress} selectedNetwork={selectedNetwork} />
+            <FeedbackSection/>
         </div>
     );
 };
