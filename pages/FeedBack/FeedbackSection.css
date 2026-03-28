@@ -1,0 +1,214 @@
+/* === Global Reset & Box Sizing Fix === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* === Feedback Wrapper === */
+.feedback-wrapper {
+  position: relative;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  
+}
+
+/* === Feedback Section Container === */
+.feedback-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 24px 24px; /* ✅ equal padding left and right */
+  border-radius: 10px;
+  background: #fff;
+  border: 2px solid #ccc;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+  position: relative;
+  font-family: inherit;
+  transition: filter 0.3s ease;
+  z-index: 1;
+  box-sizing: border-box; /* ✅ ensures padding included in width */
+}
+
+/* Blur only the form when loading */
+.feedback-container.blurred {
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+/* === Heading === */
+.feedback-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+/* === Inputs and Textarea === */
+.feedback-container input,
+.feedback-container textarea {
+  width: 100%;
+  margin: 6px 0 14px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.feedback-container input:focus,
+.feedback-container textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.feedback-container textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* === Submit Button === */
+.feedback-container button {
+  width: 100%;
+  padding: 10px;
+  background: #0056b3;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.feedback-container button:hover {
+  background: #004999;
+}
+
+.feedback-container button:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+/* === Rating Section === */
+.rating-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.rating-group label {
+  flex: 1;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.stars {
+  flex: 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.star {
+  font-size: 22px;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.2s, transform 0.1s;
+}
+
+.star.filled {
+  color: #ffcc00;
+}
+
+.stars:hover .star {
+  color: #ffcc00;
+}
+
+.stars .star:hover ~ .star {
+  color: #ccc;
+}
+
+.star:hover {
+  transform: scale(1.1);
+}
+
+/* === Loading Overlay (Fixed Centered Spinner) === */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+}
+
+/* Crisp spinner */
+.loader {
+  width: 70px;
+  height: 70px;
+  border: 6px solid #ddd;
+  border-top: 6px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  background: transparent;
+  filter: none; /* ✅ keeps spinner sharp and not blurred */
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* === Thank You Popup === */
+.thank-you-box {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  z-index: 10001;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.thank-you-box p {
+  color: #007bff;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* === Responsive Adjustment (for small screens) === */
+@media (max-width: 600px) {
+  .feedback-container {
+    margin: 20px;
+    padding: 18px 16px; /* slightly reduced padding for smaller screens */
+  }
+
+  .star {
+    font-size: 20px;
+  }
+
+  .feedback-container button {
+    font-size: 0.95rem;
+  }
+}

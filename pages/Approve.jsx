@@ -4,26 +4,31 @@ import fxRootContractABI from '../fxRootContractABI.json';
 import tokenContractJSON from './abi/NFTCollection.json';
 import './Approve.css';
 
+const fxRootAddressSepolia = import.meta.env.VITE_fxAddressSepolia;
+const fxRootAddressAmoy = import.meta.env.VITE_fxAddressAmoy;
+const fxRootAddressEthereum = import.meta.env.VITE_fxAddressEthereum;
+const fxRoorAddressPolygon = import.meta.env.VITE_fxAddressPolygon;
+
 const networks = {
   sepolia: {
     name: "Sepolia Testnet",
     chainId: 11155111,
-    fxERC71RootAddress: "0x9E688939Cb5d484e401933D850207D6750852053", // Sepolia FxRoot address
+    fxERC71RootAddress: `${fxRootAddressSepolia}`, // Sepolia FxRoot address
   },
   polygon: {
     name: "Polygon Mainnet",
     chainId: 137,
-    fxERC71RootAddress: "0xfe5e5D361b2ad62c541bAb87C45a0B9B018389a2", // Polygon FxRoot address
+    fxERC71RootAddress: `${fxRoorAddressPolygon}`, // Polygon FxRoot address
   },
   ethereum: {
     name: "Ethereum Mainnet",
     chainId: 1,
-    fxERC71RootAddress: "0xfe5e5D361b2ad62c541bAb87C45a0B9B018389a2", // Ethereum FxRoot address
+    fxERC71RootAddress: `${fxRootAddressEthereum}`, // Ethereum FxRoot address
   },
   amoy: {
     name: "Amoy Testnet",
     chainId: 80002,
-    fxERC71RootAddress: "0x9E688939Cb5d484e401933D850207D6750852053", // Amoy FxRoot address
+    fxERC71RootAddress: `${fxRootAddressAmoy}`, // Amoy FxRoot address
   },
 };
 
